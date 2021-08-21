@@ -26,7 +26,7 @@ token = os.environ['token']
 sad_words_response = ["ولش بابا خودتو اذیت نکن ", "این نیز بگذرد بمولا", "اصن ارزششو نداره",
 "بیخیال ولش باو ","چیشده؟ برام بگو"]
 
-sad_words=["هعی","تف","ناراحتم",S1,S2,"هعی داق",R1,F1,F2,"اه"]
+sad_words=["هعی","تف","ناراحتم",S1,S2,"هعی داق",R1,F1,F2,]
 
 #lists which contain added outputs and inputs
 learned_input = []
@@ -49,7 +49,6 @@ for i in keys:
 def db_reset() :
   for x in keys:
     del db[x]
-    
 #db_reset()
 
 
@@ -77,6 +76,8 @@ def main():
   @cl.event
   async def on_message(ms):
 
+    global learned_input, learned_output
+
     msg = ms.content
 
     if ms.author == cl.user:
@@ -86,6 +87,13 @@ def main():
     elif any(word in msg for word in sad_words):
         sad_words_response_random = random.choice(sad_words_response)
         await ms.channel.send(sad_words_response_random)
+
+    elif msg.startswith("$reset_database"):
+        global learned_input , learned_output
+        learned_input.clear()
+        learned_output.clear()
+        db_reset()
+        await ms.channel.send("دیتا بیس ریست شد")
 
     elif msg.startswith("راهنما") or msg.startswith("help"):
         await ms.channel.send("$delete برای پاک کردنشون بنویس  $teach برای یاد دادن کلمه ها کافیه بنویسی")
@@ -167,7 +175,7 @@ def main():
                                 
 
     #here we check if Kanna have learned the messages if yes we send the proper answer
-    global learned_input, learned_output
+    
     for i in learned_input:
       if i == msg :
         input_index = learned_input.index(i)

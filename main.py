@@ -42,7 +42,7 @@ def db_reset() :
     del db[x]
     
     
-#db_reset()
+db_reset()
 
 
 flag = False

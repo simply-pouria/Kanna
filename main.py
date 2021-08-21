@@ -76,8 +76,6 @@ def main():
   @cl.event
   async def on_message(ms):
 
-    global learned_input, learned_output
-
     msg = ms.content
 
     if ms.author == cl.user:
@@ -112,7 +110,7 @@ def main():
       async def on_message(ms4):
         global flag_2
         if flag_2:
-          
+
           if not ms4.author == cl.user and ms4.author == ms.author and not ms4.content == "$delete" :
             # i is used to understand when the whole list is checked and there is no match for the word so kanna don't even know what the word is,let alone deleting it
             i=0

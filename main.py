@@ -49,7 +49,7 @@ for i in keys:
 def db_reset() :
   for x in keys:
     del db[x]
-#db_reset()
+
 
 
 #variables which I use later in code
@@ -112,6 +112,7 @@ def main():
       async def on_message(ms4):
         global flag_2
         if flag_2:
+          
           if not ms4.author == cl.user and ms4.author == ms.author and not ms4.content == "$delete" :
             # i is used to understand when the whole list is checked and there is no match for the word so kanna don't even know what the word is,let alone deleting it
             i=0
@@ -135,9 +136,6 @@ def main():
                 flag_2 = False
                 main()
                 
-              
-        
-              
                 
     
     elif msg.startswith("$teach"):
@@ -147,31 +145,45 @@ def main():
 
         @cl.event
         async def on_message(ms2):
-            global flag
+            global learned_output
+            for y in learned_output:
+              if y == ms2.content:
+                await ms2.channel.send("این کلمه رو از قبل بلد بودم")
+                global flag
+                flag = False
+                main()
+
             if flag:
-                msg = ms2.content
+                 msg = ms2.content
                 
-                if not msg == "$teach" and not ms2.author == cl.user and ms2.author == ms.author:
+                 if not msg == "$teach" and not ms2.author == cl.user and ms2.author == ms.author:
                     global _output
                     _output = msg
                     await ms.channel.send("وقتی چی میگن اینو بگم؟")
 
                     @cl.event
                     async def on_message(ms3):
-                        global flag
-                        if flag:
-                            msg = ms3.content
-                            if not cl.user == ms.author and not msg == _output and ms3.author == ms.author:
+                      global learned_input, learned_output 
+                      for y in learned_input:
+                        if y == ms3.content:
+                          await ms3.channel.send("برای این کلمه جواب بلدم")
+                          global flag
+                          flag = False
+                          main()
+                      
+                      if flag:
+                          msg = ms3.content
+                          if not cl.user == ms.author and not msg == _output and ms3.author == ms.author:
                                 
-                                global learned_input, learned_output
-                                #we add the word to both database and lists
-                                _input = msg 
-                                learned_input.append(_input)
-                                learned_output.append(_output)
-                                await ms.channel.send("حله")
-                                db[_output] = "o1"
-                                db[_input] = "i1"
-                                main()
+                              
+                              #we add the word to both database and lists
+                              _input = msg 
+                              learned_input.append(_input)
+                              learned_output.append(_output)
+                              await ms.channel.send("حله")
+                              db[_output] = "o1"
+                              db[_input] = "i1"
+                              main()
                                 
 
     #here we check if Kanna have learned the messages if yes we send the proper answer
@@ -181,6 +193,7 @@ def main():
         input_index = learned_input.index(i)
         proper_output = learned_output[input_index]
         await ms.channel.send(proper_output)
+
 
 main()
 keep_alive()

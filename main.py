@@ -38,7 +38,7 @@ learned_output = []
 #using replit db to store words
 keys = db.keys()
 
-#All of the outputs' value is o1 and all of the inputs' value is i1, that's how I  identify them you van see line 145
+#All of the outputs' value is o1 and all of the inputs' value is i1, that's how I identify them you can see line 145
 for i in keys:
   if db[i] == "o1":
     learned_output.append(i)
@@ -49,15 +49,12 @@ for i in keys:
 def db_reset() :
   for x in keys:
     del db[x]
-
-
-
+  
 #variables which I use later in code
 flag = False
 flag_2 = False
 _input = None
 _output = None
-
 
 #simple stuff!
 cl = discord.Client()
@@ -86,8 +83,13 @@ def main():
         sad_words_response_random = random.choice(sad_words_response)
         await ms.channel.send(sad_words_response_random)
 
+    elif msg == "$print_database":
+        print(learned_input)
+        print(learned_output)
+        await ms.channel.send(learned_input)
+        await ms.channel.send(learned_output)
+
     elif msg.startswith("$reset_database"):
-        global learned_input , learned_output
         learned_input.clear()
         learned_output.clear()
         db_reset()

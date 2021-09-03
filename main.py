@@ -28,28 +28,11 @@ sad_words_response = ["ولش بابا خودتو اذیت نکن ", "این ن�
 
 sad_words=["هعی","تف","ناراحتم",S1,S2,"هعی داق",R1,F1,F2,]
 
-#lists which contain added outputs and inputs
-learned_input = []
-
-learned_output = []
-
-
 
 #using replit db to store words
-keys = db.keys()
-
-#All of the outputs' value is o1 and all of the inputs' value is i1, that's how I  identify them you van see line 145
-for i in keys:
-  if db[i] == "o1":
-    learned_output.append(i)
-  elif db[i] == "i1":
-    learned_input.append(i)
-
-#just in case I wanted to reset the database
-def db_reset() :
-  for x in keys:
-    del db[x]
-
+def get_keys() :
+  keys = db.keys()
+  return keys
 
 
 #variables which I use later in code
@@ -59,6 +42,27 @@ _input = None
 _output = None
 
 
+#creats a list of outputs
+def get_outputs() : 
+  outputs = []
+  for x in get_keys() :
+    out = db[x]
+    outputs.append(out)
+    return outputs
+
+
+#gets output returns input
+def get_key(_k_) : 
+  for x in get_keys() :
+    if db[x] == _k_:
+      return x
+
+#just in case I wanted to reset the database
+def db_reset() :
+  for x in get_keys():
+    del db[x]
+
+  
 #simple stuff!
 cl = discord.Client()
 
@@ -87,9 +91,6 @@ def main():
         await ms.channel.send(sad_words_response_random)
 
     elif msg.startswith("$reset_database"):
-        global learned_input , learned_output
-        learned_input.clear()
-        learned_output.clear()
         db_reset()
         await ms.channel.send("دیتا بیس ریست شد")
 
@@ -110,28 +111,24 @@ def main():
       async def on_message(ms4):
         global flag_2
         if flag_2:
-
+          
           if not ms4.author == cl.user and ms4.author == ms.author and not ms4.content == "$delete" :
-            # i is used to understand when the whole list is checked and there is no match for the word so kanna don't even know what the word is,let alone deleting it
+            # i is used to understand when the whole list is checked and there is no match for the word so kanna doesn't even know what the word is,let alone deleting it
             i=0
-            for x in learned_output:
+            for x in get_outputs():
               i = i + 1
               if x == ms4.content:
-                #we need to delete the words both from database and lists
-                out = ms4.content
-                ind=learned_output.index(out)
-                inp = learned_input[ind]
-                del db [out]
-                del db [inp]
-                learned_input.remove(inp)
-                learned_output.remove(out)
-                await ms.channel.send("حذف شد")
+                del db[get_key(x)]
+                await ms4.channel.send("حذف شد")
                 #we use flag to stop fetching message after the operation 
                 flag_2 = False
                 main()
-              elif i == len(learned_output):
-                await ms.channel.send("من اصلا این کلمه رو بلد نیستم")
+              elif i == len(get_keys()):
+                await ms4.channel.send("من اصلا این کلمه رو بلد نیستم")
                 flag_2 = False
+                main()
+              else : 
+                print("shit")
                 main()
                 
                 
@@ -143,13 +140,6 @@ def main():
 
         @cl.event
         async def on_message(ms2):
-            global learned_output
-            for y in learned_output:
-              if y == ms2.content:
-                await ms2.channel.send("این کلمه رو از قبل بلد بودم")
-                global flag
-                flag = False
-                main()
 
             if flag:
                  msg = ms2.content
@@ -161,8 +151,8 @@ def main():
 
                     @cl.event
                     async def on_message(ms3):
-                      global learned_input, learned_output 
-                      for y in learned_input:
+                  
+                      for y in get_keys():
                         if y == ms3.content:
                           await ms3.channel.send("برای این کلمه جواب بلدم")
                           global flag
@@ -172,25 +162,16 @@ def main():
                       if flag:
                           msg = ms3.content
                           if not cl.user == ms.author and not msg == _output and ms3.author == ms.author:
-                                
-                              
-                              #we add the word to both database and lists
-                              _input = msg 
-                              learned_input.append(_input)
-                              learned_output.append(_output)
-                              await ms.channel.send("حله")
-                              db[_output] = "o1"
-                              db[_input] = "i1"
-                              main()
+                            _input = msg
+                            db[_input] = _output
+                            await ms.channel.send("حله")
+                            main()
                                 
 
     #here we check if Kanna have learned the messages if yes we send the proper answer
-    
-    for i in learned_input:
-      if i == msg :
-        input_index = learned_input.index(i)
-        proper_output = learned_output[input_index]
-        await ms.channel.send(proper_output)
+    for g in get_keys() :
+      if g == msg:
+        await ms.channel.send(db[msg])
 
 
 main()

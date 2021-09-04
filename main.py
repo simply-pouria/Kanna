@@ -16,7 +16,7 @@ S2 = os.environ['S2']
 
 R1 = os.environ['R1'] 
 
-token = os.environ['TK']
+token = os.environ['token']
 
 
 
@@ -97,7 +97,7 @@ def main():
           global flag_2
           if flag_2:
 
-            if not ms4.author == cl.user and ms4.author == ms.author and not ms4.content == "!delete" :
+            if not ms4.author == cl.user and ms4.author == ms.author and not ms4.content == "$delete" :
               # i is used to understand when the whole list is checked and there is no match for the word so kanna don't even know what the word is,let alone deleting it
               i=0
               for y in keys2:
@@ -121,7 +121,7 @@ def main():
       else:
         await ms.channel.send("دیتا بیس خالیه")        
     
-    elif msg.startswith("!teach"):
+    elif msg.startswith("$teach"):
         global flag
         flag = True
         await ms.channel.send("چه کلمه ای میخوای بهم یاد بدی؟ ")

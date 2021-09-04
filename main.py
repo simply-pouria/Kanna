@@ -8,13 +8,15 @@ from replit import db
 
 #some secret stuff :)
 #F1,F2,S1,S2, and R1 are not secrets but a bit impolite to be in code :/
-#F2 = os.environ['F2']
+F1 = os.environ['F1']
+ 
+F2 = os.environ['F2']
 
-#S1 = os.environ['S1']
+S1 = os.environ['S1']
 
-#S2 = os.environ['S2']
+S2 = os.environ['S2']
 
-#R1 = os.environ['R1'] 
+R1 = os.environ['R1']
 
 token = os.environ['token']
 
@@ -24,7 +26,7 @@ token = os.environ['token']
 sad_words_response = ["ولش بابا خودتو اذیت نکن ", "این نیز بگذرد بمولا", "اصن ارزششو نداره",
 "بیخیال ولش باو ","چیشده؟ برام بگو"]
 
-sad_words=["هعی","تف","ناراحتم",'S1,S2',"هعی داق",'R1,F1,F2',]
+sad_words=["هعی","تف","ناراحتم",S1,S2,"هعی داق",R1,F1,F2,]
 
 #dictionary which contain added outputs and inputs
 learned_input_output = {}
@@ -69,7 +71,7 @@ def main():
         sad_words_response_random = random.choice(sad_words_response)
         await ms.channel.send(sad_words_response_random)
 
-    elif msg.startswith("!reset_database"):
+    elif msg.startswith("$reset_database"):
       if not len(learned_input_output) == 0:
         learned_input_output.clear()
         for x in keys:

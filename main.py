@@ -44,6 +44,13 @@ sad_words=["هعی","تف","ناراحتم","هعی داق",R1,F1,F2,S1,S2]
 
 #dictionary which contain added outputs and inputs
 learned_words = {}
+learned_words_str_ified = {}
+
+for learned_words_key in learned_words:
+  learned_words_value = learned_words[learned_words_key]
+  learned_words_key_str = str(learned_words_key)
+  learned_words_str_ified[learned_words_key_str] = learned_words_value
+  
 
 #we use a text file as db because we have some issues with replit database
 learned_words_str = learned_words_txt.read()
@@ -54,8 +61,9 @@ learned_words_txt.close()
 
 # we'll need this several times in code 
 def update_txt():
+  global learned_words
   learned_words_txt = open("learned_words" , "w")
-  learned_words_str = json.dumps(learned_words)
+  learned_words_str = json.dumps(learned_words_str_ified)
   learned_words_txt.write(learned_words_str)
   learned_words_txt.close()
 

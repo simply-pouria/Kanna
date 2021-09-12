@@ -47,7 +47,7 @@ learned_words = json.load(learned_words_txt)
 
 
 
-# we'll need this several times in code 
+# we'll need this several times in code to make everything easier
 def update_txt():
   global learned_words
   j = json.dumps(learned_words)
@@ -143,7 +143,7 @@ def main():
       else:
         await ms.channel.send("دیتا بیس خالیه")        
     
-    elif msg.startswith("$teach"):
+    elif msg.startswith("$teach") :
         global flag
         flag = True
         await ms.channel.send("چه کلمه ای میخوای بهم یاد بدی؟ ")
@@ -156,6 +156,11 @@ def main():
                 global flag
                 flag = False
                 main()
+            if ms2.content == "$teach" or ms2.content == "$delete" or ms2.content == "$reset_database" or ms2.content == "help" or ms2.content == "راهنما" :
+              await ms2.channel.send("you were not supposed to do that")
+              flag = False
+              main()
+
 
             if flag:
                 msg = ms2.content
@@ -173,6 +178,10 @@ def main():
                           global flag
                           flag = False
                           main()
+                      if ms3.content == "$teach" or ms3.content == "$delete" or ms3.content == "$reset_database" or ms3.content == "help" or ms3.content == "راهنما" :
+                        await ms2.channel.send("you were not supposed to do that")
+                        flag = False
+                        main()
                       
                       if flag:
                           msg = ms3.content
@@ -188,7 +197,7 @@ def main():
     #here we check if Kanna have learned the messages if yes we send the proper answer
     
     for i in keys:
-      if i == msg :
+      if i == msg:
         await ms.channel.send(learned_words[i])
         main()
 

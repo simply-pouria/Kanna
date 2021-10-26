@@ -4,6 +4,7 @@ import os
 from keep_me import keep_alive
 import json
 import randfacts
+from deep_translator import GoogleTranslator
 
 
 #some secret stuff :)
@@ -200,13 +201,20 @@ def main():
                               main()
 
 
-    elif msg.startswith("$fact") :
+    elif msg == "$fact" :
       fact = randfacts.get_fact(filter_enabled=True)
       await ms.channel.send(fact)
+      translated = GoogleTranslator(source='en', target='fa').translate(text=fact)
+      await ms.channel.send(translated)
 
-    elif msg.startswith("$wierdfact") :
+
+    elif msg == "$wierdfact" :
       fact = randfacts.get_fact(only_unsafe=True)
       await ms.channel.send(fact)
+      translated = GoogleTranslator(source='en', target='fa').translate(text=fact)
+      await ms.channel.send(translated)
+
+    
     
 
                             

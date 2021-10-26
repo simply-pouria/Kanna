@@ -3,6 +3,7 @@ import random
 import os
 from keep_me import keep_alive
 import json
+import randfacts
 
 
 #some secret stuff :)
@@ -86,6 +87,10 @@ def main():
 
     if ms.author == cl.user:
         return
+
+    #elif str(ms.author) == "justipie#2168":
+       #await ms.channel.send("Shut up")
+
 
     #now we use  lists in line 26 and 29
     elif any(word in msg for word in sad_words):
@@ -193,6 +198,17 @@ def main():
                               update_txt()
                               await ms.channel.send("حله")
                               main()
+
+
+    elif msg.startswith("$fact") :
+      fact = randfacts.get_fact(filter_enabled=True)
+      await ms.channel.send(fact)
+
+    elif msg.startswith("$wierdfact") :
+      fact = randfacts.get_fact(only_unsafe=True)
+      await ms.channel.send(fact)
+    
+
                             
     #here we check if Kanna have learned the messages if yes we send the proper answer
     

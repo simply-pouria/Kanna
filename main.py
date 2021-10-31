@@ -28,6 +28,7 @@ token = os.environ['token']
 try:
   open("learned_words" , "x")
   learned_words_txt = open("learned_words" , "w")
+  learned_words_txt.close()
   learned_words_txt.write("{}")
   learned_words_txt = open("learned_words" , "r")
 

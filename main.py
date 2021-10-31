@@ -9,7 +9,6 @@ from deep_translator import GoogleTranslator
 
 #some secret stuff :)
 #F1,F2,S1,S2, and R1 are not secrets but a bit impolite to be in code :/
-F1 = os.environ['F1']
 
 F1 = os.environ['F1']
 

@@ -37,12 +37,6 @@ try:
 except:
   learned_words_txt = open("learned_words" , "r")
 
-#lists which contain default outputs and inputs
-sad_words_response = ["ولش بابا خودتو اذیت نکن ", "این نیز بگذرد بمولا", "اصن ارزششو نداره",
-"بیخیال ولش باو ","چیشده؟ برام بگو"]
-
-sad_words=["هعی","تف","ناراحتم","هعی داق",R1,F1,F2,S1,S2]
-
 
 #dictionary which contain added outputs and inputs
 learned_words = json.load(learned_words_txt)
@@ -91,12 +85,7 @@ def main():
 
     #elif str(ms.author) == "justipie#2168":
        #await ms.channel.send("Shut up")
-
-
-    #now we use  lists in line 26 and 29
-    elif any(word in msg for word in sad_words):
-        sad_words_response_random = random.choice(sad_words_response)
-        await ms.channel.send(sad_words_response_random)
+      
 
     elif msg.startswith("$reset_database"):
       if not len(learned_words) == 0:

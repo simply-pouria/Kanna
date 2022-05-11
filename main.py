@@ -7,19 +7,6 @@ import randfacts
 from deep_translator import GoogleTranslator
 
 
-#some secret stuff :)
-#F1,F2,S1,S2, and R1 are not secrets but a bit impolite to be in code :/
-
-F1 = os.environ['F1']
-
-F2 = os.environ['F2']
-
-S1 = os.environ['S1']
-
-S2 = os.environ['S2']
-
-R1 = os.environ['R1']
-
 token = os.environ['token']
 
 
@@ -99,9 +86,6 @@ def main():
     elif msg.startswith("راهنما") or msg.startswith("help"):
         await ms.channel.send("$delete برای پاک کردنشون بنویس  $teach برای یاد دادن کلمه ها کافیه بنویسی")
 
-    elif msg.startswith("چطوری") or msg.startswith("خوبی"):
-        await ms.channel.send(random.choice(["خوبم مرسی","خوبم ممنون","هعی میگذرونیم",
-                                             "اصن مهمه؟","بد نیستم تنکس"]))
 
     #our words remain even after restart so we need to delete some of them
     elif msg == "$delete":

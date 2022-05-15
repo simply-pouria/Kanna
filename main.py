@@ -1,5 +1,4 @@
 import discord
-import random 
 import os
 from keep_me import keep_alive
 import json
@@ -15,8 +14,9 @@ token = os.environ['token']
 try:
   open("learned_words" , "x")
   learned_words_txt = open("learned_words" , "w")
-  learned_words_txt.close()
+  
   learned_words_txt.write("{}")
+  learned_words_txt.close()
   learned_words_txt = open("learned_words" , "r")
 
 
@@ -69,9 +69,6 @@ def main():
 
     if ms.author == cl.user:
         return
-
-    #elif str(ms.author) == "justipie#2168":
-       #await ms.channel.send("Shut up")
       
 
     elif msg.startswith("$reset_database"):
@@ -122,7 +119,7 @@ def main():
       else:
         await ms.channel.send("دیتا بیس خالیه")        
     
-    elif msg.startswith("$teach") :
+    elif msg.startswith("$teach"):
         global flag
         flag = True
         await ms.channel.send("چه کلمه ای میخوای بهم یاد بدی؟ ")
@@ -181,7 +178,7 @@ def main():
       await ms.channel.send(translated)
 
 
-    elif msg == "$wierdfact" :
+    elif msg == "$weirdfact" :
       fact = randfacts.get_fact(only_unsafe=True)
       await ms.channel.send(fact)
       translated = GoogleTranslator(source='en', target='fa').translate(text=fact)
@@ -197,6 +194,9 @@ def main():
       if i == msg:
         await ms.channel.send(learned_words[i])
         main()
+        
+          
+                
 
 
 main()

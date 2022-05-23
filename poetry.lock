@@ -230,6 +230,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pytz"
+version = "2022.1"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "randfacts"
 version = "0.15.0"
 description = "Package to generate random facts"
@@ -325,7 +333,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "1129621306bbd4734cb1d89a09cfa3af01d3256194ac3622fd03ef841861b5ad"
+content-hash = "c1a8c932e1c17bc5c65e0db92998812f711a05cd3595d37f0a573c49cc7afb2e"
 
 [metadata.files]
 aiohttp = [
@@ -640,6 +648,10 @@ pymongo = [
 python-decouple = [
     {file = "python-decouple-3.4.tar.gz", hash = "sha256:2e5adb0263a4f963b58d7407c4760a2465d464ee212d733e2a2c179e54c08d8f"},
     {file = "python_decouple-3.4-py3-none-any.whl", hash = "sha256:a8268466e6389a639a20deab9d880faee186eb1eb6a05e54375bdf158d691981"},
+]
+pytz = [
+    {file = "pytz-2022.1-py2.py3-none-any.whl", hash = "sha256:e68985985296d9a66a881eb3193b0906246245294a881e7c8afe623866ac6a5c"},
+    {file = "pytz-2022.1.tar.gz", hash = "sha256:1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"},
 ]
 randfacts = [
     {file = "randfacts-0.15.0-py3-none-any.whl", hash = "sha256:9ca381fe8baa7f7930559c991bd74aa0952fe57f84429947c792d45b96058205"},

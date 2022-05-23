@@ -4,6 +4,8 @@ from keep_me import keep_alive
 import json
 import randfacts
 from deep_translator import GoogleTranslator
+from datetime import datetime
+import pytz
 
 
 token = os.environ['token']
@@ -38,7 +40,23 @@ def update_txt():
     f.write(j)
     f.close()
 
-
+def update_history(input,output,user):
+  try:
+    open("history" , "x")
+    history = open("history" , "w")
+    tehran_tz = pytz.timezone('Asia/Tehran')
+    tehran_dt = datetime.now(tehran_tz)
+    tehran_time = tehran_dt.strftime("%H:%M:%S")
+    history.write(input + ' -> ' + output + ' by ' + user + ' at ' + tehran_time + '\n')
+  except:
+    history = open("history" , "a")
+    tehran_tz = pytz.timezone('Asia/Tehran')
+    tehran_dt = datetime.now(tehran_tz)
+    tehran_time = tehran_dt.strftime("%H:%M:%S")
+    history.write(input + ' -> ' + output + ' by ' + user + ' at ' + tehran_time + '\n' )
+    
+    
+  
 keys = learned_words.keys()
 
 
@@ -70,8 +88,17 @@ def main():
     if ms.author == cl.user:
         return
       
+    elif msg.startswith("$history"):
+      if ms.author.id == 740139892419461131:
+        history = open('history','r')
+        await ms.channel.send(history.read())
+      else:
+        await ms.channel.send('this command is dad-only :P')
+        
 
+      
     elif msg.startswith("$reset_database"):
+      
       if not len(learned_words) == 0:
         learned_words.clear()
         update_txt()
@@ -132,7 +159,7 @@ def main():
                 global flag
                 flag = False
                 main()
-            if ms2.content == "$teach" or ms2.content == "$delete" or ms2.content == "$reset_database" or ms2.content == "help" or ms2.content == "راهنما" :
+            if ms2.content == "$teach" or ms2.content == "$delete" or ms2.content == "$reset_database" or ms2.content == "help" or ms2.content == "راهنما" or ms2.content == "$fact" or ms2.content == "$weirdfact" :
               await ms2.channel.send("you were not supposed to do that")
               flag = False
               main()
@@ -154,7 +181,7 @@ def main():
                           global flag
                           flag = False
                           main()
-                      if ms3.content == "$teach" or ms3.content == "$delete" or ms3.content == "$reset_database" or ms3.content == "help" or ms3.content == "راهنما" :
+                      if ms3.content == "$teach" or ms3.content == "$delete" or ms3.content == "$reset_database" or ms3.content == "help" or ms3.content == "راهنما" or ms3.content == "$fact" or ms3.content == "$weirdfact" :
                         await ms2.channel.send("you were not supposed to do that")
                         flag = False
                         main()
@@ -163,10 +190,13 @@ def main():
                           msg = ms3.content
                           if not cl.user == ms.author and not msg == _output and ms3.author == ms.author:
 
-                              #we add the word to both database and dictionary
+                              #we add the word to both database and dictionary and also save t to history
                               _input = ms3.content
                               learned_words[_input] = _output
+                              user = str(ms3.author)
                               update_txt()
+                              update_history(_input,_output,user)
+                            
                               await ms.channel.send("حله")
                               main()
 
@@ -194,11 +224,16 @@ def main():
       if i == msg:
         await ms.channel.send(learned_words[i])
         main()
-        
-          
-                
-
+                  
 
 main()
 keep_alive()
 cl.run(token)
+
+
+
+      
+
+
+
+

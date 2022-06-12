@@ -87,13 +87,25 @@ def main():
 
     if ms.author == cl.user:
         return
+
+    elif msg.startswith("$clearhistory"):
+      if ms.author.id == 740139892419461131:
+        os.remove('history')
+        await ms.channel.send('history cleared')
+      else:
+        await ms.channel.send('this command is dad-only 𓁹‿𓁹')
       
     elif msg.startswith("$history"):
       if ms.author.id == 740139892419461131:
-        history = open('history','r')
-        await ms.channel.send(history.read())
+        try:
+          history = open('history','r')
+          await ms.channel.send(history.read())
+          
+        except :
+          await ms.channel.send('history is either too long or empty')
+        
       else:
-        await ms.channel.send('this command is dad-only :P')
+        await ms.channel.send('this command is dad-only 𓁹‿𓁹')
         
 
       
@@ -159,7 +171,7 @@ def main():
                 global flag
                 flag = False
                 main()
-            if ms2.content == "$teach" or ms2.content == "$delete" or ms2.content == "$reset_database" or ms2.content == "help" or ms2.content == "راهنما" or ms2.content == "$fact" or ms2.content == "$weirdfact" :
+            if ms2.content == "$teach" or ms2.content == "$delete" or ms2.content == "$reset_database" or ms2.content == "help" or ms2.content == "راهنما" or ms2.content == "$fact" or ms2.content == "$weirdfact" or ms2.content == "$history" or ms2.content == "$clearhistory" :
               await ms2.channel.send("you were not supposed to do that")
               flag = False
               main()
@@ -181,7 +193,7 @@ def main():
                           global flag
                           flag = False
                           main()
-                      if ms3.content == "$teach" or ms3.content == "$delete" or ms3.content == "$reset_database" or ms3.content == "help" or ms3.content == "راهنما" or ms3.content == "$fact" or ms3.content == "$weirdfact" :
+                      if ms3.content == "$teach" or ms3.content == "$delete" or ms3.content == "$reset_database" or ms3.content == "help" or ms3.content == "راهنما" or ms3.content == "$fact" or ms3.content == "$weirdfact" or ms2.content == "$history" or ms2.content == "$clearhistory":
                         await ms2.channel.send("you were not supposed to do that")
                         flag = False
                         main()

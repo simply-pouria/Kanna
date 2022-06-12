@@ -19,4 +19,8 @@ returnes a random fact
 $weirdfact
 returnes a random weird fact, I dont recommend it 
 
+$help
+sends this message
+
+
 $resetdatabase , $history , $clearhistory are bot admin-only commands hopefully they will be avalible for server admins once database became exclusive for each server.

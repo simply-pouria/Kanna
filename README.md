@@ -1,9 +1,26 @@
 
-my second discord bot named Kanna
+you can add kanna to your Discord server without a lot of premissions using this link https://discord.com/api/oauth2/authorize?client_id=868594950659506216&permissions=535310105664&scope=bot
 
-Kanna is my second text bot which is persian but it's easy to make it English or any other language.
+Kanna is a simple Discord chat bot that can learn from you and respond to you and your friends based on that.
 
-Kanna is hosted on replit and uses replit database to store learned words also keep_alive.py is used to prevent replit server from entering sleep stage.
-there are some built in words. they were the only words Kanna used to know before I added teach. $teach is used for teaching Kanna new words.
-the words used to be stored in two dictianories but a week ago I added the functionality to store words in replit db as well so they don't disapear if the bot restarts.
-$delete is the latest thing I added. also the problem about it is now solved.
+here is a quick guide:
+
+$teach
+learns a word from you, your first message will be the answer that kanna replies with and your second message will be the one which triggers kanna
+(uppercase/lowercase is important)
+
+$delete
+deletes a reply (input the word that kanna replies with it)
+(uppercase/lowercase is important)
+
+$fact
+returnes a random fact
+
+$weirdfact
+returnes a random weird fact, I dont recommend it 
+
+$help
+sends this message
+
+
+$resetdatabase , $history , $clearhistory are bot admin-only commands hopefully they will be avalible for server admins once database became exclusive for each server.

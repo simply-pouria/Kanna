@@ -11,6 +11,10 @@ import pytz
 token = os.environ['token']
 
 
+
+help_txt = "Kanna is a simple Discord chat bot that can learn from you and respond to you and your friends based on that. here is a quick guide" +'\n' + '$teach learns a word from you, your first message will be the answer that kanna replies with and your second message will be the one which    triggers kanna (uppercase/lowercase is important)' + '\n' + '$delete deletes a reply (input the word that kanna replies with it) (uppercase/lowercase is important)' + '\n' + '$fact returnes a random fact' + '\n' + '$weirdfact returnes a random weird fact, I dont recommend it' + '\n' + '$help sends this message' + '\n' + ' $resetdatabase , $history , $clearhistory are bot admin-only commands hopefully they will be avalible for server admins once database became exclusive for each server'
+   
+        
 #we use a text file as db because we have some issues with replit database
 # If there is not a txt file we'll add one and write {} in it 
 try:
@@ -109,26 +113,31 @@ def main():
         
 
       
-    elif msg.startswith("$reset_database"):
+    elif msg.startswith("$resetdatabase"):
+
+      if ms.author.id == 740139892419461131:
       
-      if not len(learned_words) == 0:
-        learned_words.clear()
-        update_txt()
-        await ms.channel.send("دیتا بیس ریست شد")
+        if not len(learned_words) == 0:
+          learned_words.clear()
+          update_txt()
+          await ms.channel.send("database is cleared")
+        else:
+          await ms.channel.send("database was already empty")
       else:
-        await ms.channel.send("دیتا بیس خالیه")
+        await ms.channel.send('this command is dad-only 𓁹‿𓁹')
+        
 
 
-    elif msg.startswith("راهنما") or msg.startswith("help"):
-        await ms.channel.send("$delete برای پاک کردنشون بنویس  $teach برای یاد دادن کلمه ها کافیه بنویسی")
-
+    elif msg.startswith("$help"):
+        await ms.channel.send(help_txt)
+          
 
     #our words remain even after restart so we need to delete some of them
     elif msg == "$delete":
       if not len(learned_words) == 0:
         global flag_2
         flag_2 = True
-        await ms.channel.send("چه کلمه ای رو میخوای حذف کنی؟")
+        await ms.channel.send("what is the word that I shouldn't say?")
 
         @cl.event
         async def on_message(ms4):
@@ -145,29 +154,29 @@ def main():
                   #we need to delete the words from dictionary
                   del learned_words[y]
                   update_txt()
-                  await ms.channel.send("حذف شد")
+                  await ms.channel.send('word deleted')
                   flag_2 = False
                   #we use flag to stop fetching message after the operation 
                   main()
                 elif i == len(learned_words):
-                  await ms.channel.send("من اصلا این کلمه رو بلد نیستم")
+                  await ms.channel.send("word is now forgotten")
                   flag_2 = False
                   main()
         
 
       else:
-        await ms.channel.send("دیتا بیس خالیه")        
+        await ms.channel.send("database is empty")        
     
     elif msg.startswith("$teach"):
         global flag
         flag = True
-        await ms.channel.send("چه کلمه ای میخوای بهم یاد بدی؟ ")
+        await ms.channel.send("what do you want to teach me ?")
 
         @cl.event
         async def on_message(ms2):
             for y in learned_words.values():
               if y == ms2.content:
-                await ms2.channel.send("این کلمه رو از قبل بلد بودم")
+                await ms2.channel.send("I already know that")
                 global flag
                 flag = False
                 main()
@@ -183,13 +192,13 @@ def main():
                 if not msg == "$teach" and not ms2.author == cl.user and ms2.author == ms.author:
                     global _output
                     _output = msg
-                    await ms.channel.send("وقتی چی میگن اینو بگم؟")
+                    await ms.channel.send("when should I respond with this?")
 
                     @cl.event
                     async def on_message(ms3):
                       for y in keys:
                         if y == ms3.content:
-                          await ms3.channel.send("برای این کلمه جواب بلدم")
+                          await ms3.channel.send("I already know an answer for that")
                           global flag
                           flag = False
                           main()
@@ -209,7 +218,7 @@ def main():
                               update_txt()
                               update_history(_input,_output,user)
                             
-                              await ms.channel.send("حله")
+                              await ms.channel.send("Learned it, thank you for teaching me!")
                               main()
 
 

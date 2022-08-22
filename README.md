@@ -6,7 +6,7 @@ Kanna is a simple Discord chat bot that can learn from you and respond to you an
 here is a quick guide:
 
 $teach
-learns a word from you, your first message will be the answer that kanna replies with and your second message will be the one which triggers kanna
+learns a word from you, your first message will be the answer that kanna replies with. your second message will be the one which triggers kanna
 (uppercase/lowercase is important)
 
 $delete
@@ -23,4 +23,4 @@ $help
 sends this message
 
 
-$resetdatabase , $history , $clearhistory are bot admin-only commands hopefully they will be avalible for server admins once database became exclusive for each server.
+$resetdatabase , $history , $clearhistory are admin-only commands. hopefully they will be avalible for server mods once database becomes exclusive for each server.

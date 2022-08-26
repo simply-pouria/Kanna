@@ -71,8 +71,8 @@ _input = None
 _output = None
 
 
-#simple stuff!
-cl = discord.Client()
+#simple stuff! edit: not simple anymore actually i myself dont get it 
+cl = discord.Client(intents=discord.Intents.default())
 
 @cl.event
 async def on_ready():

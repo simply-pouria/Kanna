@@ -1,4 +1,6 @@
 import discord
+import discord.ui
+from discord.ui import Button , View
 import os
 from keep_me import keep_alive
 import json
@@ -6,11 +8,11 @@ import randfacts
 from deep_translator import GoogleTranslator
 from datetime import datetime
 import pytz
+import pymongo
+from pymongo import MongoClient
 
 
 token = os.environ['token']
-
-
 
 help_txt = "Kanna is a simple Discord chat bot that can learn from you and respond to you and your friends based on that. here is a quick guide" +'\n' + '$teach learns a word from you, your first message will be the answer that kanna replies with and your second message will be the one which    triggers kanna (uppercase/lowercase is important)' + '\n' + '$delete deletes a reply (input the word that kanna replies with it) (uppercase/lowercase is important)' + '\n' + '$fact returnes a random fact' + '\n' + '$weirdfact returnes a random weird fact, I dont recommend it' + '\n' + '$help sends this message' + '\n' + ' $resetdatabase , $history , $clearhistory are bot admin-only commands hopefully they will be avalible for server admins once database became exclusive for each server'
    
@@ -89,18 +91,24 @@ def main():
 
     msg = ms.content
 
+
     if ms.author == cl.user:
         return
-
+    elif msg.startswith("$buttontest"):
+      await ms.channel.send("here is your button")
+      button = Button(label = "test" , style = discord.ButtonStyle.green , )
+      view = View()
+      view.add_item(button)
+      await ms.channel.send("here is your button" , view = view)
     elif msg.startswith("$clearhistory"):
       if ms.author.id == 740139892419461131:
         os.remove('history')
         await ms.channel.send('history cleared')
       else:
-        await ms.channel.send('this command is dad-only 𓁹‿𓁹')
-      
+        await ms.channel.send('this command is dad-only (┬┬﹏┬┬)')
     elif msg.startswith("$history"):
-      if ms.author.id == 740139892419461131:
+      if ms.author.id == 740139892419461131 or ms.author.id == 802140799101829190:
+      
         try:
           history = open('history','r')
           await ms.channel.send(history.read())
@@ -109,9 +117,10 @@ def main():
           await ms.channel.send('history is either too long or empty')
         
       else:
-        await ms.channel.send('this command is dad-only 𓁹‿𓁹')
+        await ms.channel.send('this command is dad-only ಥ_ಥ')
         
-
+    elif msg.startswith("$settings"):
+        await ms.channel
       
     elif msg.startswith("$resetdatabase"):
 
@@ -254,7 +263,6 @@ cl.run(token)
 
 
       
-
 
 
 

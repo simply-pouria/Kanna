@@ -6,21 +6,21 @@ Kanna is a simple Discord chat bot that can learn from you and respond to you an
 ## Here is a quick guide:
 
 `$teach`
-Learns a word from you, your first message will be the answer that kanna replies with. your second message will be the one which triggers kanna.
+> Learns a word from you, your first message will be the answer that kanna replies with. your second message will be the one which triggers kanna.
 (uppercase/lowercase is important.)
 
 `$delete`
-Deletes a reply (input the word that kanna replies with it)
+> Deletes a reply (input the word that kanna replies with it)
 (uppercase/lowercase is important.)
 
 `$fact`
-Returnes a random fact.
+> Returnes a random fact.
 
 `$weirdfact`
-~~Returnes a random weird fact~~, I dont recommend it .
+> ~~Returnes a random weird fact~~, I dont recommend it .
 
 `$help`
-Sends this guide.
+> Sends this guide.
 
 
 `$resetdatabase` , `$history` , and `$clearhistory` are admin-only commands. hopefully they will be avalible for server mods once database became exclusive for each server.
